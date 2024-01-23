@@ -1,0 +1,66 @@
+<h1>Contacts</h1>
+
+<div>
+    <label for="name">Name:</label>
+    <input type="text" name="name" [(ngModel)]="userName" required #name="ngModel">
+    <div class="error" *ngIf="name.invalid && name.dirty">Name is required</div>
+</div>
+
+<div>
+    <label for="email">Email:</label>
+    <input type="text" name="email" [(ngModel)]="userEmail" required #email="ngModel">
+    <div class="error" *ngIf="email.invalid && email.dirty">Email is required</div>
+</div>
+
+<div>
+    <label>Phones:</label>
+
+    <div *ngFor="let phone of userPhones; let i=index; trackBy: trackByIndex">
+        <input type="text" [(ngModel)]="userPhones[i]" name="input{{i}}">
+        <button (click)="addUserPhone()">+</button>
+        <button (click)="removeUserPhone(i)" *ngIf="i">-</button>
+    </div>
+</div>
+
+<div>
+    <label for="message">Message:</label>
+    <textarea name="message" [(ngModel)]="userMessage"></textarea>
+</div>
+
+
+<hr>
+
+
+
+
+<form #myForm="ngForm" (ngSubmit)="sendEmail(myForm)">
+
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" name="name" [(ngModel)]="userName" required #name="ngModel">
+        <div class="error" *ngIf="name.invalid && name.dirty">Name is required</div>
+    </div>
+
+    <div>
+        <label for="email">Email:</label>
+        <input type="text" name="email" [(ngModel)]="userEmail" required #email="ngModel">
+        <div class="error" *ngIf="email.invalid && email.dirty">Email is required</div>
+    </div>
+
+    <div>
+        <label>Phones:</label>
+
+        <div *ngFor="let phone of userPhones; let i=index; trackBy: trackByIndex">
+            <input type="text" [(ngModel)]="userPhones[i]" name="input{{i}}">
+            <button (click)="addUserPhone()">+</button>
+            <button (click)="removeUserPhone(i)" *ngIf="i">-</button>
+        </div>
+    </div>
+
+    <div>
+        <label for="message">Message:</label>
+        <textarea name="message" [(ngModel)]="userMessage"></textarea>
+    </div>
+
+    <button [disabled]="myForm.invalid">Send</button>
+</form>

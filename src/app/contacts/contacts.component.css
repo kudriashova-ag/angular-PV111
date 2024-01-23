@@ -1,0 +1,13 @@
+input{
+    border: 1px #888 solid;
+    outline: none;
+}
+
+.ng-dirty.ng-invalid{
+    border-color: red
+}
+
+.error{
+    color: red;
+    font-size: 0.8em;
+}
