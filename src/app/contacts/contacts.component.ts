@@ -19,6 +19,8 @@ export class ContactsComponent {
   sendEmail(form: NgForm) {
     console.log(form);
   }
+
+  
   addUserPhone() {
     this.userPhones.push('');
   }

@@ -1,0 +1,30 @@
+<button (click)="changeVisibleForm()">Add user</button>
+
+
+<form [formGroup] = "myFrom" (ngSubmit)="submit()" *ngIf="isVisibleForm">
+    <div>
+        <input type="text" formControlName="userName">
+        <div class="error" *ngIf="myFrom.controls['userName'].invalid && myFrom.controls['userName'].dirty">
+            Error Name
+        </div>
+    </div>
+
+    <div>
+        <input type="email" formControlName="userEmail">
+    </div>
+
+    <div formArrayName="userPhones">
+
+        <div *ngFor="let phone of getPhonesArray().controls; let i = index; ">
+            <input type="text" formControlName={{i}}>
+        </div>
+
+    </div>
+
+    <button (click)="addUserPhone()">Add Phone</button>
+
+
+
+
+    <button [disabled]="myFrom.invalid">Send</button>
+</form>
