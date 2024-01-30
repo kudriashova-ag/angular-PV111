@@ -1,0 +1,9 @@
+<h1>Shop</h1>
+
+<div class="products">
+    <div class="product" *ngFor="let product of products">
+        <img src="{{product.image}}" alt="">
+        <div>{{product.title | lowercase | slice:0:10}}</div>
+        <div>{{product.price | currency:"UAH":"грн":"1.2-2"}}</div>
+    </div>
+</div>

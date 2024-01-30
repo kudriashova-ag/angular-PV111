@@ -1,9 +1,9 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { users } from '../../UsersData';
 import { User } from '../../User';
 import { UserSingleComponent } from '../../user-single/user-single.component';
 import { ReactiveFormComponent } from '../../../form/reactive-form/reactive-form.component';
+import { UserService } from '../../user.service';
 
 
 @Component({
@@ -13,18 +13,19 @@ import { ReactiveFormComponent } from '../../../form/reactive-form/reactive-form
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css',
 })
+  
+  
 export class UserListComponent {
-  usersList = users;
+  usersList: User[] = [];
 
-  addUser(data: any) { 
-    this.usersList.push({
-      name: data.userName,
-      email: data.userEmail,
-      phones: data.userPhones,
-      id: new Date().getTime()
-    });
+  constructor(private userService: UserService) {
   }
 
+  ngOnInit() {
+    this.usersList = this.userService.getUsers();
+  }
 
-  
+  addUser(data: any) { 
+    this.userService.addUser(data);
+  } 
 }
