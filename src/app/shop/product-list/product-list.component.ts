@@ -20,9 +20,8 @@ export class ProductListComponent {
   constructor(private http: HttpClient, private productService: ProductService) {}
 
   ngOnInit() {
-    // this.http
-    //   .get<Product[]>('https://fakestoreapi.com/products')
-    this.productService.getProducts()
+    this.http
+      .get<Product[]>('https://fakestoreapi.com/products')
       .pipe(
         map((data: any) => {
           return data.map((p: any) => {
