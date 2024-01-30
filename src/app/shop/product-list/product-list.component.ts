@@ -5,28 +5,36 @@ import { Product } from '../Product';
 import { ProductService } from '../product.service';
 import { catchError, map } from 'rxjs';
 import { log } from 'console';
+import { MyComponentModule } from '../../app.module';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [HttpClientModule, NgFor, LowerCasePipe, SlicePipe, CurrencyPipe],
+  imports: [HttpClientModule, NgFor, LowerCasePipe, SlicePipe, CurrencyPipe, MyComponentModule],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css',
 })
 export class ProductListComponent {
   products: Product[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private productService: ProductService) {}
 
   ngOnInit() {
-    this.http
-      .get<Product[]>('https://fakestoreapi.com/products')
-      .pipe(map((data: any) => {
-        return data.map((p: any) => { return { ...p, price: p.price *= 40 } })
-      }),
-        catchError(err => { console.log(err); return []; })
+    // this.http
+    //   .get<Product[]>('https://fakestoreapi.com/products')
+    this.productService.getProducts()
+      .pipe(
+        map((data: any) => {
+          return data.map((p: any) => {
+            return { ...p, price: (p.price *= 40) };
+          });
+        }),
+        catchError((err) => {
+          console.log(err);
+          return [];
+        })
       )
-      .subscribe(data=>this.products = data);
+      .subscribe((data) => (this.products = data));
   }
 }
 

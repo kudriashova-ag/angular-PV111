@@ -10,8 +10,8 @@ import { Product } from './Product';
 export class ProductService {
   constructor(private http: HttpClient) { }
   
-  // getProducts():Observable<Product[]> {
-  //   return this.http.get<Product[]>('https://fakestoreapi.com/products');
-  // }
+  getProducts():Observable<Product[]> {
+    return this.http.get<Product[]>('https://fakestoreapi.com/products');
+  }
 
 }
